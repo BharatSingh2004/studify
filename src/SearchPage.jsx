@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import './SearchPage.css';
+import "./SearchPage.css";
 
 const SearchPage = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("query") || "";
 
-  const [Data, setData] = useState(query); // initialize Data with query
+  const [Data, setData] = useState(query); 
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -94,7 +94,8 @@ const SearchPage = () => {
 
     let parsed;
     try {
-      const jsonMatch = content.match(/```json([\s\S]*?)```/) || content.match(/{[\s\S]*}/);
+      const jsonMatch =
+        content.match(/```json([\s\S]*?)```/) || content.match(/{[\s\S]*}/);
       const jsonString = jsonMatch ? jsonMatch[1] || jsonMatch[0] : null;
       if (!jsonString) throw new Error("No JSON found in response");
 
@@ -117,7 +118,9 @@ const SearchPage = () => {
               <li key={i}>
                 <strong>{branch.title}</strong>
                 <ul>
-                  {branch.subpoints.map((sp, j) => <li key={j}>{sp}</li>)}
+                  {branch.subpoints.map((sp, j) => (
+                    <li key={j}>{sp}</li>
+                  ))}
                 </ul>
               </li>
             ))}
@@ -128,8 +131,12 @@ const SearchPage = () => {
           <h3>📚 Flashcards</h3>
           {parsed.flashcards.map((card, i) => (
             <div key={i} className="flashcard">
-              <p><strong>Q:</strong> {card.question}</p>
-              <p><strong>A:</strong> {card.answer}</p>
+              <p>
+                <strong>Q:</strong> {card.question}
+              </p>
+              <p>
+                <strong>A:</strong> {card.answer}
+              </p>
             </div>
           ))}
         </div>
@@ -138,8 +145,12 @@ const SearchPage = () => {
           <h3>❓Q&A</h3>
           {parsed.questions_and_answers.map((qa, i) => (
             <div key={i}>
-              <p><strong>Q:</strong> {qa.question}</p>
-              <p><strong>A:</strong> {qa.answer}</p>
+              <p>
+                <strong>Q:</strong> {qa.question}
+              </p>
+              <p>
+                <strong>A:</strong> {qa.answer}
+              </p>
             </div>
           ))}
         </div>
@@ -154,7 +165,8 @@ const SearchPage = () => {
               }));
             };
 
-            const isCorrect = mcqAnswers[i]?.selectedOption === mcq.correct_option;
+            const isCorrect =
+              mcqAnswers[i]?.selectedOption === mcq.correct_option;
             const answerState = mcqAnswers[i];
 
             return (
@@ -162,16 +174,20 @@ const SearchPage = () => {
                 <p>{mcq.question}</p>
                 <ul>
                   {mcq.options.map((opt, j) => (
-                    <li 
+                    <li
                       key={j}
                       onClick={() => handleOptionClick(opt)}
                       style={{
-                        fontWeight: mcqAnswers[i]?.selectedOption === opt ? "bold" : "normal",
-                        color: mcqAnswers[i]?.selectedOption === opt
-                          ? isCorrect
-                            ? "green"
-                            : "red"
-                          : "white",
+                        fontWeight:
+                          mcqAnswers[i]?.selectedOption === opt
+                            ? "bold"
+                            : "normal",
+                        color:
+                          mcqAnswers[i]?.selectedOption === opt
+                            ? isCorrect
+                              ? "green"
+                              : "red"
+                            : "white",
                         cursor: "pointer",
                       }}
                     >
@@ -180,10 +196,14 @@ const SearchPage = () => {
                   ))}
                 </ul>
                 {answerState?.isAnswered && !isCorrect && (
-                  <p style={{ color: "red" }}><em>{mcq.explanation}</em></p>
+                  <p style={{ color: "red" }}>
+                    <em>{mcq.explanation}</em>
+                  </p>
                 )}
                 {answerState?.isAnswered && isCorrect && (
-                  <p style={{ color: "green" }}><em>{`Correct! ${mcq.explanation}`}</em></p>
+                  <p style={{ color: "green" }}>
+                    <em>{`Correct! ${mcq.explanation}`}</em>
+                  </p>
                 )}
               </div>
             );
@@ -192,17 +212,31 @@ const SearchPage = () => {
 
         <div className="section">
           <h3>🌍 Real-Life Examples</h3>
-          <ul>{parsed.real_life_examples.map((ex, i) => <li key={i}>{ex}</li>)}</ul>
+          <ul>
+            {parsed.real_life_examples.map((ex, i) => (
+              <li key={i}>{ex}</li>
+            ))}
+          </ul>
         </div>
 
         <div className="section">
           <h3>🖼️ Visual Tips</h3>
-          <ul>{parsed.visual_tips.map((tip, i) => <li key={i}>{tip}</li>)}</ul>
+          <ul>
+            {parsed.visual_tips.map((tip, i) => (
+              <li key={i}>{tip}</li>
+            ))}
+          </ul>
         </div>
 
         <div className="section">
           <h3>🧠 Mnemonics</h3>
-          <pre><ul>{parsed.mnemonics.map((mne, i) => <li key={i}>{mne}</li>)}</ul></pre>
+          <pre>
+            <ul>
+              {parsed.mnemonics.map((mne, i) => (
+                <li key={i}>{mne}</li>
+              ))}
+            </ul>
+          </pre>
         </div>
       </div>
     );
@@ -210,13 +244,8 @@ const SearchPage = () => {
 
   return (
     <div className="search-page">
-    
- 
       <div className="input-container">
-      
-      
         <input
-          
           className="input-section-1"
           type="text"
           value={Data}
@@ -234,14 +263,15 @@ const SearchPage = () => {
           disabled={loading || !Data || query === Data}
         >
           {loading ? "Loading..." : "Search"}
-          </button>
-          </div>
-   
+        </button>
+      </div>
 
       {error && <div className="error-message">{error}</div>}
 
       {loading ? (
-        <div className="loading-message">Hold On, we are making you notes...</div>
+        <div className="loading-message">
+          Hold On, we are making you notes...
+        </div>
       ) : (
         response && formatResponse(response)
       )}
