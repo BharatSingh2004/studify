@@ -54,7 +54,7 @@ const SearchPage = () => {
 
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCy2loH0H2FOM-9lHjwLfmlnRLhiiDuUgw`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAi7tQE0-rcLq9P7IsQgKO1pf8ulEBC1UQ`,
         {
           method: "POST",
           headers: {
